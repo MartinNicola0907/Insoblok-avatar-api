@@ -1,0 +1,55 @@
+mutation CreateDefaultAvatars @auth(level: NO_ACCESS) {
+  defaultAvatar_insertMany(data: [
+    {
+      name: "Default Avatar 1",
+      description: "A simple default avatar.",
+      url: "https://example.com/default1.png",
+      createdAt: "2024-04-26T00:00:00Z"
+    },
+    {
+      name: "Default Avatar 2",
+      description: "Another default avatar.",
+      url: "https://example.com/default2.png",
+      createdAt: "2024-04-26T00:00:00Z"
+    }
+  ])
+}
+
+query ListDefaultAvatars @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  defaultAvatars {
+    id
+    name
+    description
+    url
+    createdAt
+  }
+}
+
+mutation CreateAvatar($filename: String!, $mimeType: String!, $originalUrl: String!, $storagePath: String) @auth(level: USER) {
+  avatar_insert(data: {
+    userId_expr: "auth.uid",
+    filename: $filename,
+    mimeType: $mimeType,
+    originalUrl: $originalUrl,
+    storagePath: $storagePath,
+    createdAt_expr: "request.time"
+  })
+}
+
+query GetUserAvatars @auth(level: USER) {
+  avatars(where: {userId: {eq_expr: "auth.uid"}}) {
+    id
+    filename
+    mimeType
+    originalUrl
+    storagePath
+    createdAt
+    avatarVariants_on_avatar {
+      id
+      sizeName
+      variantUrl
+      width
+      height
+    }
+  }
+}

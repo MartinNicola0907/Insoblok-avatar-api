@@ -1,0 +1,33 @@
+type User @table {
+  userId: UUID
+  createdAt: Timestamp!
+  username: String
+  email: String
+}
+
+type Avatar @table {
+  avatarId: UUID
+  user: User!
+  originalUrl: String!
+  createdAt: Timestamp!
+  filename: String
+  mimeType: String
+  storagePath: String
+}
+
+type AvatarVariant @table {
+  variantId: UUID
+  avatar: Avatar!
+  sizeName: String!
+  variantUrl: String!
+  width: Int
+  height: Int
+}
+
+type DefaultAvatar @table {
+  defaultAvatarId: UUID
+  url: String!
+  createdAt: Timestamp!
+  name: String
+  description: String
+}

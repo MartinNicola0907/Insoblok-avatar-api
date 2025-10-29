@@ -1,0 +1,66 @@
+mutation SeedDatabase @transaction @auth(level: PUBLIC, insecureReason: "This mutation is used to seed the database with initial data and is safe to expose.") {
+  user_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      username: "demouser1",
+      email: "demouser1@example.com",
+      createdAt: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      username: "demouser2",
+      email: "demouser2@example.com",
+      createdAt: "2024-01-02T00:00:00Z"
+    }
+  ])
+  defaultAvatar_insertMany(data: [
+    {
+      id: "650e8400-e29b-41d4-a716-446655440000",
+      name: "default1",
+      url: "https://example.com/default1.png",
+      createdAt: "2024-01-03T00:00:00Z",
+      description: "Default avatar 1"
+    },
+    {
+      id: "650e8400-e29b-41d4-a716-446655440001",
+      name: "default2",
+      url: "https://example.com/default2.png",
+      createdAt: "2024-01-04T00:00:00Z",
+      description: "Default avatar 2"
+    }
+  ])
+  avatar_insertMany(data: [
+    {
+      id: "750e8400-e29b-41d4-a716-446655440000",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      originalUrl: "https://example.com/avatar1.png",
+      createdAt: "2024-01-05T00:00:00Z",
+      filename: "avatar1.png",
+      mimeType: "image/png",
+    },
+    {
+      id: "750e8400-e29b-41d4-a716-446655440001",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      originalUrl: "https://example.com/avatar2.png",
+      createdAt: "2024-01-06T00:00:00Z",
+      filename: "avatar2.png",
+      mimeType: "image/png",
+    }
+  ])
+  avatarVariant_insertMany(data: [
+    {
+      avatarId: "750e8400-e29b-41d4-a716-446655440000",
+      sizeName: "small",
+      variantUrl: "https://example.com/avatar1_small.png",
+      width: 50,
+      height: 50
+    },
+    {
+      avatarId: "750e8400-e29b-41d4-a716-446655440001",
+      sizeName: "small",
+      variantUrl: "https://example.com/avatar2_small.png",
+      width: 50,
+      height: 50
+    }
+  ])
+}
