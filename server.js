@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 8000;
 // Middleware
 app.use(cors({
   origin: [
+    'https://insoblok-webapp.web.app',
     'https://apps.insoblokai.io',
     'https://insoblokai.io',
     'http://localhost:5173'
